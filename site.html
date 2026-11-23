@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CYBER OMÉGA accompagne les entreprises et les particuliers avec des solutions informatiques, numériques et de formation.">
+  <meta name="theme-color" content="#071426">
+  <title>CYBER OMÉGA — L’innovation numérique à votre portée</title>
+  <style>
+    :root {
+      --navy: #071426;
+      --navy-2: #0d2038;
+      --blue: #3478f6;
+      --cyan: #70d9ff;
+      --text: #17253a;
+      --muted: #68778b;
+      --surface: #ffffff;
+      --soft: #f3f6fa;
+      --line: #e4eaf1;
+      --shadow: 0 18px 50px rgba(7, 20, 38, .10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--text);
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(7, 20, 38, .96); color: white;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: .08em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 39px; height: 39px;
+      border: 1px solid rgba(112,217,255,.6); border-radius: 12px;
+      color: var(--cyan); font-size: 24px; line-height: 1;
+    }
+    .brand small { display: block; color: #9eb1c9; font-size: 9px; letter-spacing: .23em; }
+    .nav-links { display: flex; align-items: center; gap: 24px; font-size: 14px; color: #d6e0ed; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 12px 17px; border: 0; border-radius: 10px;
+      background: var(--blue); color: white; font-weight: 700; transition: .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,.28); }
+    .btn-light { background: white; color: var(--navy); }
+    .icon-btn {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      border: 1px solid rgba(255,255,255,.18); border-radius: 11px;
+      color: white; background: transparent;
+    }
+    .menu-toggle { display: none; }
+
+    .hero {
+      overflow: hidden; position: relative; color: white;
+      background:
+        radial-gradient(circle at 80% 34%, rgba(52,120,246,.28), transparent 27%),
+        radial-gradient(circle at 72% 90%, rgba(112,217,255,.12), transparent 30%),
+        linear-gradient(125deg, #071426 5%, #0c1d34 62%, #102849);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .16;
+      background-image: linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 58px 58px; mask-image: linear-gradient(90deg, transparent, black);
+    }
+    .hero-grid { position: relative; z-index: 1; min-height: 590px; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 30px; padding: 70px 0; }
+    .eyebrow { color: var(--cyan); text-transform: uppercase; letter-spacing: .2em; font-size: 12px; font-weight: 800; }
+    h1 { max-width: 700px; font-size: clamp(40px, 5.7vw, 68px); line-height: 1.07; letter-spacing: -.045em; margin: 18px 0; }
+    .hero p { max-width: 560px; color: #bdcadd; font-size: 17px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; color: #9eb1c9; font-size: 13px; margin-top: 28px; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: #57dda8; box-shadow: 0 0 0 5px rgba(87,221,168,.13); }
+    .visual { min-height: 390px; display: grid; place-items: center; position: relative; }
+    .orbit { width: min(360px, 80vw); aspect-ratio: 1; position: relative; display: grid; place-items: center; border: 1px solid rgba(112,217,255,.2); border-radius: 50%; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; inset: 10%; border: 1px solid rgba(112,217,255,.18); border-radius: 50%; transform: rotate(-28deg) scaleY(.55); }
+    .orbit::after { transform: rotate(35deg) scaleY(.55); }
+    .core {
+      width: 175px; height: 175px; display: grid; place-items: center;
+      border-radius: 38px; color: var(--cyan); font-size: 100px;
+      background: linear-gradient(145deg, rgba(52,120,246,.28), rgba(112,217,255,.08));
+      border: 1px solid rgba(112,217,255,.38); box-shadow: 0 0 80px rgba(52,120,246,.2);
+    }
+    .float-card {
+      position: absolute; padding: 12px 15px; background: rgba(9,26,48,.88);
+      border: 1px solid rgba(255,255,255,.13); border-radius: 12px; color: #dbe7f5;
+      font-size: 13px; box-shadow: var(--shadow); animation: float 5s ease-in-out infinite;
+    }
+    .float-card.one { top: 15%; right: 0; }
+    .float-card.two { bottom: 15%; left: 0; animation-delay: -2s; }
+    @keyframes float { 50% { transform: translateY(-9px); } }
+
+    section { padding: 88px 0; }
+    .section-head { max-width: 650px; margin-bottom: 36px; }
+    .section-head h2 { font-size: clamp(30px, 4vw, 43px); line-height: 1.15; letter-spacing: -.035em; margin: 9px 0 12px; color: var(--navy); }
+    .section-head p { color: var(--muted); margin: 0; }
+    .kicker { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 24px; transition: .22s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: #c8d9f5; box-shadow: var(--shadow); }
+    .service-icon { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 13px; background: #edf4ff; color: var(--blue); font-size: 21px; }
+    .card h3 { margin: 17px 0 8px; color: var(--navy); font-size: 18px; }
+    .card p { color: var(--muted); font-size: 14px; margin: 0; }
+    .card ul { margin: 14px 0 0; padding-left: 18px; color: #53647a; font-size: 13px; }
+    .soft-section { background: var(--soft); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-panel {
+      padding: 32px; color: white; border-radius: 24px; min-height: 300px;
+      background: linear-gradient(145deg, #0b1e38, #123b70);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .about-panel .omega { font-size: 88px; color: var(--cyan); line-height: 1; }
+    .values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+    .value { padding: 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: #d6e3f2; font-size: 13px; }
+    .about-copy p { color: var(--muted); }
+    .check-list { padding: 0; list-style: none; color: #44546a; }
+    .check-list li { margin: 10px 0; }
+    .check-list li::before { content: "✓"; color: var(--blue); font-weight: 900; margin-right: 10px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 24px; }
+    .filter {
+      border: 1px solid var(--line); background: white; color: #53647a;
+      padding: 8px 14px; border-radius: 999px; font-size: 13px;
+    }
+    .filter.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .project { overflow: hidden; padding: 0; }
+    .project-art { min-height: 175px; display: grid; place-items: center; color: white; font-size: 42px; background: linear-gradient(135deg, #0b1e38, #3478f6); }
+    .project:nth-child(2) .project-art { background: linear-gradient(135deg, #162849, #19a4b8); }
+    .project:nth-child(3) .project-art { background: linear-gradient(135deg, #27304d, #8b68ef); }
+    .project-body { padding: 19px; }
+    .project-body h3 { margin: 0 0 4px; font-size: 17px; }
+    .project-body p { color: var(--muted); margin: 0; font-size: 13px; }
+
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .quote { color: #43536a; font-size: 14px; }
+    .stars { color: #f3ad37; letter-spacing: 2px; }
+    .person { display: flex; align-items: center; gap: 11px; margin-top: 18px; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--blue); background: #edf4ff; font-weight: 800; }
+    .person strong { display: block; font-size: 13px; }
+    .person small { color: var(--muted); }
+    .form-card { max-width: 720px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; color: #44546a; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    input, textarea, select {
+      width: 100%; padding: 12px 13px; border: 1px solid #dce4ee; border-radius: 10px;
+      background: white; color: var(--text); outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(52,120,246,.1); }
+    textarea { min-height: 120px; resize: vertical; }
+    .field { margin-bottom: 14px; }
+    .full { grid-column: 1 / -1; }
+    .notice { min-height: 24px; margin: 10px 0 0; color: #147a52; font-size: 14px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: start; }
+    .contact-info { background: var(--navy); color: white; padding: 28px; border-radius: var(--radius); }
+    .contact-info p { color: #b5c5d9; }
+    .contact-info a { color: var(--cyan); }
+    .contact-row { margin: 18px 0; }
+    .cta {
+      color: white; padding: 46px; border-radius: 24px;
+      background: linear-gradient(115deg, #0a1c34, #174c8a);
+      display: flex; justify-content: space-between; align-items: center; gap: 25px;
+    }
+    .cta h2 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 38px); }
+    .cta p { margin: 0; color: #c4d3e6; }
+    footer { background: #06101e; color: #bac8d9; padding: 28px 0; font-size: 13px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .whatsapp {
+      position: fixed; right: 20px; bottom: 20px; z-index: 8;
+      width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%;
+      color: white; background: #20bd70; box-shadow: 0 10px 25px rgba(0,0,0,.2); font-size: 24px;
+    }
+
+    dialog { width: min(440px, calc(100% - 28px)); border: 0; padding: 0; border-radius: 18px; box-shadow: 0 30px 100px #0006; }
+    dialog::backdrop { background: rgba(3,10,20,.72); backdrop-filter: blur(4px); }
+    .modal-head { padding: 21px 23px; color: white; background: var(--navy); display: flex; align-items: center; justify-content: space-between; }
+    .modal-head h2 { font-size: 18px; margin: 0; }
+    .modal-body { padding: 23px; }
+    .close-modal { background: transparent; color: white; border: 0; font-size: 23px; }
+    .admin-panel { position: fixed; inset: 0; z-index: 20; background: #f3f6fa; overflow: auto; display: none; }
+    .admin-panel.open { display: block; }
+    .admin-top { background: var(--navy); color: white; padding: 16px 0; }
+    .admin-top-inner { display: flex; align-items: center; justify-content: space-between; }
+    .admin-content { padding: 34px 0; }
+    .admin-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+    .admin-tabs button { border: 1px solid var(--line); background: white; padding: 9px 14px; border-radius: 9px; }
+    .admin-tabs button.active { background: var(--blue); color: white; border-color: var(--blue); }
+    .admin-list { margin-top: 15px; display: grid; gap: 9px; }
+    .admin-item { display: flex; justify-content: space-between; gap: 15px; align-items: center; background: white; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+    .danger { color: #c0392b; border: 1px solid #f0c9c4; background: #fff8f7; border-radius: 8px; padding: 6px 9px; }
+    .admin-notice { color: #147a52; min-height: 24px; }
+
+    body.dark { --surface: #101b2a; --soft: #0c1725; --text: #e7edf6; --muted: #a5b3c5; --line: #26374c; }
+    body.dark .section-head h2, body.dark .card h3 { color: #edf4ff; }
+    body.dark .card, body.dark .filter, body.dark input, body.dark textarea, body.dark select { background: #132236; color: #e7edf6; }
+    body.dark .filter { border-color: #31445d; }
+    body.dark .project-body h3 { color: #edf4ff; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; position: absolute; left: 0; right: 0; top: 76px; padding: 18px 22px 24px; background: var(--navy); flex-direction: column; align-items: stretch; gap: 13px; border-top: 1px solid #ffffff18; }
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: grid; }
+      .nav-actions .quote-nav { display: none; }
+      .hero-grid { grid-template-columns: 1fr; padding: 63px 0 48px; }
+      .visual { min-height: 320px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+      .services-grid, .projects-grid, .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 30px, 1120px); }
+      section { padding: 65px 0; }
+      .nav { min-height: 68px; }
+      .nav-links { top: 68px; }
+      .brand { font-size: 13px; }
+      .hero-grid { min-height: initial; padding: 55px 0 35px; }
+      .hero p { font-size: 15px; }
+      .visual { min-height: 285px; }
+      .core { width: 135px; height: 135px; font-size: 76px; border-radius: 30px; }
+      .float-card.one { right: -2px; }
+      .float-card.two { left: -2px; }
+      .services-grid, .projects-grid, .testimonial-grid, .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .cta { padding: 28px; align-items: flex-start; flex-direction: column; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .about-panel { min-height: 270px; padding: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#accueil" id="siteLogo" aria-label="CYBER OMÉGA, accueil">
+        <span class="brand-mark">Ω</span>
+        <span>CYBER OMÉGA<small>INNOVATION NUMÉRIQUE</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#apropos">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#formations">Formations</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn quote-nav" href="#contact">Demander un devis</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Changer le thème" title="Mode clair/sombre">◐</button>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Votre partenaire numérique</div>
+          <h1>Le numérique au service de vos ambitions.</h1>
+          <p>CYBER OMÉGA accompagne les entreprises et les particuliers avec des solutions informatiques fiables, des outils numériques élégants et des formations accessibles.</p>
+          <div class="hero-buttons">
+            <a class="btn" href="#services">Découvrir nos services <span>→</span></a>
+            <a class="btn btn-outline" href="#contact">Nous contacter</a>
+          </div>
+          <div class="hero-note"><span class="pulse"></span> Des solutions pensées pour avancer en confiance.</div>
+        </div>
+        <div class="visual" aria-label="Illustration technologique">
+          <div class="orbit"><div class="core">Ω</div></div>
+          <div class="float-card one">✦ &nbsp; Technologie utile</div>
+          <div class="float-card two">● &nbsp; Accompagnement humain</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Nos expertises</div>
+          <h2>Des services essentiels, bien pensés.</h2>
+          <p>De l’assistance informatique à la création digitale, nous vous aidons à trouver la solution adaptée à votre besoin.</p>
+        </div>
+        <div class="services-grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <section class="soft-section" id="apropos">
+      <div class="container about-grid">
+        <div class="about-panel">
+          <div class="eyebrow">Notre engagement</div>
+          <div class="omega">Ω</div>
+          <div>
+            <strong>CYBER OMÉGA</strong>
+            <div style="color:#bfd0e4">L’innovation numérique à votre portée.</div>
+          </div>
+        </div>
+        <div class="about-copy">
+          <div class="kicker">À propos</div>
+          <h2 style="font-size:clamp(30px,4vw,43px);line-height:1.15;letter-spacing:-.035em;color:var(--navy)">La technologie doit simplifier le quotidien.</h2>
+          <p>Nous aidons nos clients à mieux travailler grâce à un accompagnement clair, des outils fiables et des solutions conçues pour durer.</p>
+          <ul class="check-list">
+            <li>Une équipe à l’écoute de vos besoins</li>
+            <li>Des conseils simples et transparents</li>
+            <li>Des solutions adaptées à votre budget</li>
+          </ul>
+          <div class="values">
+            <div class="value">01 · Proximité</div><div class="value">02 · Fiabilité</div>
+            <div class="value">03 · Innovation utile</div><div class="value">04 · Qualité</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="realisations">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Nos réalisations</div>
+          <h2>Des idées transformées en projets.</h2>
+          <p>Une sélection de travaux et de projets représentatifs de notre savoir-faire.</p>
+        </div>
+        <div class="filters" id="projectFilters"></div>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <section class="soft-section" id="temoignages">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Ils nous font confiance</div>
+          <h2>Les retours de nos clients.</h2>
+          <p>Les témoignages publiés ici sont modifiables depuis l’administration.</p>
+        </div>
+        <div class="testimonial-grid" id="testimonialsGrid"></div>
+        <div style="margin-top:28px">
+          <button class="btn" id="openTestimonial">Partager votre expérience</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="formations">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Formations</div>
+          <h2>Montez en compétences à votre rythme.</h2>
+          <p>Des formations accessibles, pratiques et adaptées à votre niveau.</p>
+        </div>
+        <div class="services-grid" id="trainingGrid"></div>
+      </div>
+    </section>
+
+    <section class="soft-section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Contact</div>
+          <h2>Parlons de votre projet.</h2>
+          <p>Décrivez-nous votre besoin : nous vous répondrons dès que possible.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info" id="contactInfo"></div>
+          <form class="card form-card" id="contactForm">
+            <div class="form-grid">
+              <div class="field"><label for="contactName">Nom complet</label><input id="contactName" name="name" required placeholder="Votre nom"></div>
+              <div class="field"><label for="contactEmail">Adresse e-mail</label><input id="contactEmail" name="email" type="email" required placeholder="vous@exemple.com"></div>
+              <div class="field full"><label for="contactSubject">Votre besoin</label><select id="contactSubject" name="subject"><option>Demande de devis</option><option>Question sur un service</option><option>Formation</option><option>Autre demande</option></select></div>
+              <div class="field full"><label for="contactMessage">Message</label><textarea id="contactMessage" name="message" required placeholder="Comment pouvons-nous vous aider ?"></textarea></div>
+              <div class="full"><button class="btn" type="submit">Envoyer le message</button><p class="notice" id="contactNotice" role="status"></p></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="container cta">
+        <div><h2>Un projet en tête ?</h2><p>Faisons le point sur vos besoins et trouvons la bonne solution.</p></div>
+        <a class="btn btn-light" href="#contact">Demander un devis <span>→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#accueil"><span class="brand-mark">Ω</span><span>CYBER OMÉGA<small>INNOVATION NUMÉRIQUE</small></span></a>
+      <span>© <span id="year"></span> CYBER OMÉGA. Tous droits réservés.</span>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <a class="whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener" aria-label="Contacter CYBER OMÉGA sur WhatsApp">✆</a>
+
+  <dialog id="testimonialDialog">
+    <div class="modal-head"><h2>Partager votre expérience</h2><button class="close-modal" data-close="testimonialDialog" aria-label="Fermer">×</button></div>
+    <form class="modal-body" id="testimonialForm">
+      <div class="field"><label for="tName">Votre nom</label><input id="tName" required maxlength="50"></div>
+      <div class="field"><label for="tRole">Entreprise ou fonction</label><input id="tRole" maxlength="70" placeholder="Facultatif"></div>
+      <div class="field"><label for="tText">Votre témoignage</label><textarea id="tText" required minlength="10" maxlength="400"></textarea></div>
+      <button class="btn" type="submit">Envoyer mon témoignage</button>
+      <p class="notice" id="testimonialNotice" role="status"></p>
+    </form>
+  </dialog>
+
+  <dialog id="loginDialog">
+    <div class="modal-head"><h2>Accès administrateur</h2><button class="close-modal" data-close="loginDialog" aria-label="Fermer">×</button></div>
+    <form class="modal-body" id="loginForm">
+      <div class="field"><label for="adminUser">Identifiant</label><input id="adminUser" autocomplete="username" required></div>
+      <div class="field"><label for="adminPassword">Mot de passe</label><input id="adminPassword" type="password" autocomplete="current-password" required></div>
+      <button class="btn" type="submit">Se connecter</button>
+      <p class="notice" id="loginNotice" role="status"></p>
+    </form>
+  </dialog>
+
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-top"><div class="container admin-top-inner"><strong>Ω &nbsp; Administration CYBER OMÉGA</strong><button class="btn btn-outline" id="adminLogout">Déconnexion</button></div></div>
+    <div class="container admin-content">
+      <div class="section-head"><div class="kicker">Espace de gestion</div><h2>Gérez le contenu du site.</h2><p>Les changements de cette démonstration sont enregistrés dans ce navigateur.</p></div>
+      <div class="admin-tabs">
+        <button class="active" data-tab="overview">Vue d’ensemble</button>
+        <button data-tab="content">Coordonnées</button>
+        <button data-tab="testimonials">Témoignages</button>
+        <button data-tab="messages">Messages</button>
+        <button data-tab="projects">Réalisations</button>
+      </div>
+      <div id="adminView"></div>
+      <p class="admin-notice" id="adminNotice"></p>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "cyberOmegaSiteData_v1";
+    const defaults = {
+      contact: {
+        phone: "+000 00 00 00 00",
+        email: "contact@cyberomega.com",
+        address: "Votre adresse, votre ville",
+        hours: "Lun–Ven : 8h30–17h30",
+        whatsapp: "00000000000"
+      },
+      services: [
+        { icon:"⌘", title:"Informatique", text:"Un support technique fiable pour votre équipement.", items:["Maintenance et dépannage","Réparation d’ordinateurs","Installation de logiciels","Réseaux informatiques"] },
+        { icon:"✦", title:"Développement numérique", text:"Des outils web adaptés aux besoins de votre activité.", items:["Création de sites web","Applications web et mobiles","Logiciels de gestion","Solutions numériques"] },
+        { icon:"◈", title:"Infographie & communication", text:"Une identité visuelle cohérente pour votre marque.", items:["Logos et identité visuelle","Affiches publicitaires","Flyers et cartes de visite"] },
+        { icon:"▤", title:"Bureautique & impression", text:"Des services de proximité pour vos documents.", items:["Saisie et mise en page","Impression et photocopie","Numérisation, reliure et plastification"] },
+        { icon:"▣", title:"Matériel informatique", text:"Du matériel et des équipements adaptés.", items:["Ordinateurs et imprimantes","Accessoires informatiques","Équipements réseau"] },
+        { icon:"◎", title:"Conseil & accompagnement", text:"Un accompagnement clair pour vos choix numériques.", items:["Audit de vos besoins","Conseils d’équipement","Accompagnement des équipes"] }
+      ],
+      trainings: [
+        { icon:"W", title:"Bureautique", text:"Maîtrisez les outils essentiels pour votre quotidien.", items:["Word","Excel","PowerPoint"] },
+        { icon:"⌘", title:"Maintenance informatique", text:"Apprenez à entretenir et dépanner un ordinateur.", items:["Diagnostic","Maintenance préventive","Dépannage de base"] },
+        { icon:"</>", title:"Développement web", text:"Découvrez les bases pour créer des expériences web.", items:["HTML et CSS","JavaScript","Bonnes pratiques web"] }
+      ],
+      projects: [
+        { category:"Web", icon:"↗", title:"Site vitrine professionnel", text:"Conception web · Présentation d’activité" },
+        { category:"Identité visuelle", icon:"◈", title:"Identité de marque", text:"Logo · Univers graphique · Supports" },
+        { category:"Informatique", icon:"⌘", title:"Modernisation d’un parc", text:"Installation · Réseau · Assistance" }
+      ],
+      testimonials: [
+        { name:"Client professionnel", role:"Entreprise", text:"Une équipe disponible et de bons conseils. Le résultat correspond exactement à nos besoins.", approved:true },
+        { name:"Cliente satisfaite", role:"Particulier", text:"L’accompagnement a été clair du début à la fin. Je recommande leurs services.", approved:true }
+      ],
+      messages: []
+    };
+
+    function loadData() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return stored ? { ...defaults, ...stored, contact:{...defaults.contact, ...(stored.contact||{})} } : structuredClone(defaults);
+      } catch { return structuredClone(defaults); }
+    }
+    let data = loadData();
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+    const initials = name => String(name).trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase();
+
+    function renderServices() {
+      document.getElementById("servicesGrid").innerHTML = data.services.map(s => `
+        <article class="card"><div class="service-icon">${esc(s.icon)}</div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>
+        <ul>${s.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></article>`).join("");
+      document.getElementById("trainingGrid").innerHTML = data.trainings.map(s => `
+        <article class="card"><div class="service-icon">${esc(s.icon)}</div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>
+        <ul>${s.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></article>`).join("");
+    }
+    function renderProjects(filter="Tous") {
+      const categories = ["Tous", ...new Set(data.projects.map(p=>p.category))];
+      document.getElementById("projectFilters").innerHTML = categories.map(c =>
+        `<button class="filter ${c===filter?"active":""}" data-filter="${esc(c)}">${esc(c)}</button>`).join("");
+      const shown = filter==="Tous" ? data.projects : data.projects.filter(p=>p.category===filter);
+      document.getElementById("projectsGrid").innerHTML = shown.length ? shown.map(p => `
+        <article class="card project"><div class="project-art">${esc(p.icon)}</div><div class="project-body"><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p></div></article>`).join("") : `<p>Aucune réalisation dans cette catégorie.</p>`;
+      document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>renderProjects(b.dataset.filter)));
+    }
+    function renderTestimonials() {
+      const approved = data.testimonials.filter(t=>t.approved);
+      document.getElementById("testimonialsGrid").innerHTML = approved.length ? approved.map(t=>`
+        <article class="card"><div class="stars" aria-label="5 étoiles">★★★★★</div><p class="quote">“${esc(t.text)}”</p><div class="person"><div class="avatar">${esc(initials(t.name))}</div><div><strong>${esc(t.name)}</strong><small>${esc(t.role||"Client")}</small></div></div></article>`).join("") : `<p>Pas encore de témoignages publiés. Soyez le premier à partager votre expérience.</p>`;
+    }
+    function renderContact() {
+      const c = data.contact;
+      document.getElementById("contactInfo").innerHTML = `
+        <div class="eyebrow">Nos coordonnées</div><h3>Restons en contact.</h3>
+        <div class="contact-row"><strong>Téléphone</strong><br><a href="tel:${esc(c.phone.replace(/[^\d+]/g,""))}">${esc(c.phone)}</a></div>
+        <div class="contact-row"><strong>E-mail</strong><br><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div>
+        <div class="contact-row"><strong>Adresse</strong><br>${esc(c.address)}</div>
+        <div class="contact-row"><strong>Horaires</strong><br>${esc(c.hours)}</div>`;
+      const digits = String(c.whatsapp).replace(/\D/g,"");
+      document.getElementById("whatsappLink").href = digits ? `https://wa.me/${digits}` : "#contact";
+    }
+    function renderAll() { renderServices(); renderProjects(); renderTestimonials(); renderContact(); }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderAll();
+
+    const navLinks = document.getElementById("navLinks");
+    document.getElementById("menuToggle").addEventListener("click", e=>{
+      const open = navLinks.classList.toggle("open");
+      e.currentTarget.setAttribute("aria-expanded", open);
+    });
+    navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navLinks.classList.remove("open")));
+    document.getElementById("themeToggle").addEventListener("click",()=>document.body.classList.toggle("dark"));
+
+    const testimonialDialog = document.getElementById("testimonialDialog");
+    document.getElementById("openTestimonial").addEventListener("click",()=>testimonialDialog.showModal());
+    document.querySelectorAll("[data-close]").forEach(btn=>btn.addEventListener("click",()=>document.getElementById(btn.dataset.close).close()));
+
+    document.getElementById("testimonialForm").addEventListener("submit", e=>{
+      e.preventDefault();
+      data.testimonials.unshift({
+        name:document.getElementById("tName").value.trim(),
+        role:document.getElementById("tRole").value.trim() || "Client",
+        text:document.getElementById("tText").value.trim(),
+        approved:false
+      });
+      saveData();
+      document.getElementById("testimonialNotice").textContent = "Merci ! Votre témoignage sera publié après validation.";
+      e.target.reset();
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", e=>{
+      e.preventDefault();
+      const form = new FormData(e.target);
+      data.messages.unshift({
+        name:form.get("name"), email:form.get("email"),
+        subject:form.get("subject"), message:form.get("message"),
+        date:new Date().toLocaleString("fr-FR")
+      });
+      saveData();
+      document.getElementById("contactNotice").textContent = "Votre demande a été enregistrée. Merci de nous avoir contactés.";
+      e.target.reset();
+    });
+
+    // Déclencheur de démonstration : 20 clics sur le logo.
+    let logoClicks = 0, clickTimer;
+    document.getElementById("siteLogo").addEventListener("click", e=>{
+      e.preventDefault();
+      logoClicks++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(()=>logoClicks=0, 2500);
+      if (logoClicks >= 20) {
+        logoClicks = 0;
+        document.getElementById("loginDialog").showModal();
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", e=>{
+      e.preventDefault();
+      const user = document.getElementById("adminUser").value;
+      const pass = document.getElementById("adminPassword").value;
+      if (user === "admin" && pass === "Omega2026!") {
+        document.getElementById("loginDialog").close();
+        document.getElementById("adminPanel").classList.add("open");
+        renderAdmin("overview");
+      } else {
+        document.getElementById("loginNotice").textContent = "Identifiant ou mot de passe incorrect.";
+      }
+    });
+
+    document.getElementById("adminLogout").addEventListener("click",()=>{
+      document.getElementById("adminPanel").classList.remove("open");
+      document.getElementById("loginForm").reset();
+    });
+    document.querySelectorAll(".admin-tabs button").forEach(btn=>btn.addEventListener("click",()=>{
+      document.querySelectorAll(".admin-tabs button").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active"); renderAdmin(btn.dataset.tab);
+    }));
+
+    function renderAdmin(tab) {
+      const view = document.getElementById("adminView");
+      if (tab==="overview") {
+        view.innerHTML = `<div class="services-grid">
+          <article class="card"><div class="kicker">Services</div><h3>${data.services.length}</h3><p>Catégories de services</p></article>
+          <article class="card"><div class="kicker">Projets</div><h3>${data.projects.length}</h3><p>Réalisations affichées</p></article>
+          <article class="card"><div class="kicker">Messages</div><h3>${data.messages.length}</h3><p>Demandes enregistrées sur cet appareil</p></article>
+          </div><p style="color:var(--muted);margin-top:20px">Les témoignages soumis par les clients apparaissent dans l’onglet « Témoignages » pour validation.</p>`;
+      }
+      if (tab==="content") {
+        const c=data.contact;
+        view.innerHTML=`<form class="card" id="contactEditForm"><div class="form-grid">
+          ${adminField("Téléphone","phone",c.phone)}${adminField("E-mail","email",c.email)}
+          ${adminField("Adresse","address",c.address)}${adminField("Horaires","hours",c.hours)}
+          ${adminField("WhatsApp (indicatif pays + numéro, sans espaces)","whatsapp",c.whatsapp)}
+          <div class="full"><button class="btn">Enregistrer les coordonnées</button></div></div></form>`;
+        document.getElementById("contactEditForm").addEventListener("submit",e=>{
+          e.preventDefault(); const fd=new FormData(e.target);
+          for(const [k,v] of fd.entries()) data.contact[k]=v;
+          saveData(); renderContact(); adminFeedback("Coordonnées mises à jour.");
+        });
+      }
+      if (tab==="testimonials") {
+        view.innerHTML=`<div class="admin-list">${data.testimonials.length ? data.testimonials.map((t,i)=>`
+          <div class="admin-item"><div><strong>${esc(t.name)}</strong> · ${esc(t.role)}<br><small>${esc(t.text)} — ${t.approved?"Publié":"En attente"}</small></div>
+          <div style="display:flex;gap:7px">${!t.approved?`<button class="btn" data-approve="${i}">Publier</button>`:""}<button class="danger" data-delete-t="${i}">Supprimer</button></div></div>`).join("") : "<p>Aucun témoignage.</p>"}</div>`;
+        view.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>{data.testimonials[b.dataset.approve].approved=true;saveData();renderTestimonials();renderAdmin(tab);});
+        view.querySelectorAll("[data-delete-t]").forEach(b=>b.onclick=()=>{data.testimonials.splice(b.dataset.deleteT,1);saveData();renderTestimonials();renderAdmin(tab);});
+      }
+      if (tab==="messages") {
+        view.innerHTML=`<div class="admin-list">${data.messages.length ? data.messages.map((m,i)=>`
+          <article class="card"><div style="display:flex;justify-content:space-between;gap:12px"><div><strong>${esc(m.name)}</strong> · <a href="mailto:${esc(m.email)}">${esc(m.email)}</a><br><small>${esc(m.subject)} · ${esc(m.date)}</small></div><button class="danger" data-delete-m="${i}">Supprimer</button></div><p>${esc(m.message)}</p></article>`).join("") : "<p>Aucun message enregistré.</p>"}</div>`;
+        view.querySelectorAll("[data-delete-m]").forEach(b=>b.onclick=()=>{data.messages.splice(b.dataset.deleteM,1);saveData();renderAdmin(tab);});
+      }
+      if (tab==="projects") {
+        view.innerHTML=`<form class="card" id="projectForm"><div class="form-grid">
+          <div class="field"><label>Nom du projet</label><input name="title" required></div>
+          <div class="field"><label>Catégorie</label><input name="category" required placeholder="Web, Informatique…"></div>
+          <div class="field"><label>Description</label><input name="text" required></div>
+          <div class="field"><label>Symbole</label><input name="icon" maxlength="4" value="✦"></div>
+          <div class="full"><button class="btn">Ajouter la réalisation</button></div></div></form>
+          <div class="admin-list">${data.projects.map((p,i)=>`<div class="admin-item"><div><strong>${esc(p.title)}</strong><br><small>${esc(p.category)} · ${esc(p.text)}</small></div><button class="danger" data-delete-p="${i}">Supprimer</button></div>`).join("")}</div>`;
+        document.getElementById("projectForm").addEventListener("submit",e=>{
+          e.preventDefault();const fd=new FormData(e.target);
+          data.projects.unshift(Object.fromEntries(fd.entries()));saveData();renderProjects();renderAdmin(tab);adminFeedback("Réalisation ajoutée.");
+        });
+        view.querySelectorAll("[data-delete-p]").forEach(b=>b.onclick=()=>{data.projects.splice(b.dataset.deleteP,1);saveData();renderProjects();renderAdmin(tab);});
+      }
+    }
+    function adminField(label,name,value) {
+      return `<div class="field"><label for="edit-${name}">${esc(label)}</label><input id="edit-${name}" name="${name}" value="${esc(value)}" required></div>`;
+    }
+    function adminFeedback(text) {
+      const el=document.getElementById("adminNotice"); el.textContent=text;
+      setTimeout(()=>el.textContent="",2500);
+    }
+  </script>
+</body>
+</html>
